@@ -21,7 +21,14 @@ python3 -m pip install .
 hitl-vault init
 ```
 
-For direct script use:
+Or install it in editable mode while developing locally:
+
+```bash
+python3 -m pip install -e .
+hitl-vault init
+```
+
+For direct script use without installing the package:
 
 ```bash
 chmod +x hitl_vault.py
@@ -29,6 +36,15 @@ chmod +x hitl_vault.py
 ```
 
 ## Setup
+
+If you installed the package, use the `hitl-vault` command:
+
+```bash
+hitl-vault add vps-ssh-passphrase
+hitl-vault list
+```
+
+If you are running the script directly instead, use:
 
 ```bash
 ./hitl_vault.py init
@@ -48,6 +64,14 @@ Only encrypted data is written there. Secret names and notes are encrypted insid
 
 Use `run` when an agent needs a command to use a secret without pasting that secret into the chat or logs.
 
+Installed package:
+
+```bash
+hitl-vault run --secret vps-ssh-passphrase:SSH_KEY_PASSPHRASE -- ./some-tool
+```
+
+Direct script use:
+
 ```bash
 ./hitl_vault.py run --secret vps-ssh-passphrase:SSH_KEY_PASSPHRASE -- ./some-tool
 ```
@@ -58,6 +82,14 @@ The selected secret is available only to the child process as `SSH_KEY_PASSPHRAS
 
 `get` prints plaintext to stdout. Use it only when a human explicitly needs to read a value.
 
+Installed package:
+
+```bash
+hitl-vault get vps-ssh-passphrase
+```
+
+Direct script use:
+
 ```bash
 ./hitl_vault.py get vps-ssh-passphrase
 ```
@@ -65,6 +97,14 @@ The selected secret is available only to the child process as `SSH_KEY_PASSPHRAS
 ## Backup
 
 Back up the encrypted vault file, then test that the backup opens before deleting old plaintext notes.
+
+Installed package:
+
+```bash
+hitl-vault export-encrypted-copy /path/to/backup/vault.json
+```
+
+Direct script use:
 
 ```bash
 ./hitl_vault.py export-encrypted-copy /path/to/backup/vault.json
